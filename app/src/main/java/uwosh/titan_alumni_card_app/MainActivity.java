@@ -17,8 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    private static String USER_DATA;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -50,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        USER_DATA = getIntent().getStringExtra("USER_DATA");
+        Toast.makeText(MainActivity.this,USER_DATA, Toast.LENGTH_LONG).show();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

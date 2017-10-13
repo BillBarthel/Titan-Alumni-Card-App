@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     //Include the IP of the computer XAMPP is running on
-    private static final String URL = "http://192.168.0.7/AlumniCardAndroid/signIn.php";
+    private static String URL = "http://192.168.0.7/AlumniCardAndroid/signIn.php";
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -208,26 +208,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             //String link = "localhost/AlumniCardAndroid/signIn.php?email="+email+"&password="+password;
             //URL url = new URL(link);
-
+            String URLVariables = "?email=" + email + "&password=" + password;
+            URL = URL.concat(URLVariables);
             //Request a string response from the provided URL
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             //check the response from the server
-                            if(response.equals("success")){
+                            String[] result = response.split(",");
+                            if(result[0].equals("success")){
                                 //login authenticated. Start the next activity
                                 Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                i.putExtra("USER_DATA",result[1]);
                                 startActivity(i);
                             }else{
                                 //login failed. prompt to re-enter credentials
                                 mPasswordView.setError("Invalid email or password.");
                                 mPasswordView.requestFocus();
                             }
-                            showProgress(false);
-                            System.out.println(response);
-                            Toast.makeText(LoginActivity.this,response, Toast.LENGTH_LONG).show();
+                            //System.out.println(response);
+                            //Toast.makeText(LoginActivity.this,response, Toast.LENGTH_LONG).show();
                         }
                     },
                     new Response.ErrorListener() {
@@ -247,14 +249,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return params;
                 }
             };
+            showProgress(false);
             //add the request to the RequestQueue
             requestQueue.add(stringRequest);
 
-
-            //mAuthTask = new UserLoginTask(email, password);
-            //mAuthTask.execute((Void) null);
-            //Intent i = new Intent(this, MainActivity.class);
-            //startActivity(i);
         }
     }
 
