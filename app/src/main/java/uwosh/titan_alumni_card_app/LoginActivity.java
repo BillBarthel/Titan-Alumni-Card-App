@@ -172,8 +172,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        final String email = mEmailView.getText().toString();
-        final String password = mPasswordView.getText().toString();
+        //final String email = mEmailView.getText().toString();
+        //final String password = mPasswordView.getText().toString();
+        final String email = "barthw52@alumni.uwosh.edu";
+        final String password = "admin";
 
         boolean cancel = false;
         View focusView = null;
@@ -216,7 +218,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         @Override
                         public void onResponse(String response) {
                             //check the response from the server
-                            String[] result = response.split(",");
+                            String[] result = response.split("-");
                             if(result[0].equals("success")){
                                 //login authenticated. Start the next activity
                                 Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
