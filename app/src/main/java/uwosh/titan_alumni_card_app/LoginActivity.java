@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity{
     private static String URL = "http://192.168.0.7/AlumniCardAndroid/signIn.php";
     private static final String TAG = "LoginActivity";
     private SectionsPageAdapter mSectionsPageAdapter;
+    private ViewPager mViewPager;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -71,6 +73,15 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+        //Set up the ViewPager with the sections adapter
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        setupViewPager(mViewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.login_tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+        /*
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         //populateAutoComplete();
@@ -97,6 +108,7 @@ public class LoginActivity extends AppCompatActivity{
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        */
     }
 
     private void setupViewPager(ViewPager viewPager){
