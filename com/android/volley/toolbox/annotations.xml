@@ -1,0 +1,6 @@
+<root>
+    <item
+        name='com.android.volley.toolbox.Volley com.android.volley.RequestQueue newRequestQueue(android.content.Context)'>
+        <annotation name='android.support.annotation.NonNull' />
+    </item>
+</root>

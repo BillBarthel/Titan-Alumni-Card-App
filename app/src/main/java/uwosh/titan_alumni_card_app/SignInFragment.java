@@ -1,12 +1,8 @@
 package uwosh.titan_alumni_card_app;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -41,16 +37,12 @@ public class SignInFragment extends Fragment {
     private static final String TAG = "SignInFragment";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
-    //Include the IP of the computer XAMPP is running on
-    private static String URL = "http://192.168.0.7/AlumniCardAndroid/signIn.php";
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
 
-    public Activity LoginActivity;
+    public LoginActivity LoginActivity;
 
     @Nullable
     @Override
@@ -79,9 +71,6 @@ public class SignInFragment extends Fragment {
             }
         });
 
-        mLoginFormView = view.findViewById(R.id.login_form);
-        mProgressView = view.findViewById(R.id.login_progress);
-
         return view;
     }
 
@@ -90,7 +79,7 @@ public class SignInFragment extends Fragment {
         super.onAttach(context);
 
         if(context instanceof Activity){
-            LoginActivity = (Activity)context;
+            LoginActivity = (LoginActivity)context;
         }
     }
 
@@ -102,7 +91,6 @@ public class SignInFragment extends Fragment {
      * Break this into separate functions
      */
     private void attemptLogin() {
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -139,14 +127,11 @@ public class SignInFragment extends Fragment {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
-
-            RequestQueue requestQueue = Volley.newRequestQueue(getView().getContext());
+            @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
+                                                    Volley.newRequestQueue(getView().getContext());
 
             String URLVariables = "?email=" + email + "&password=" + password;
-            URL = URL.concat(URLVariables);
+            String URL = LoginActivity.getURL().concat(URLVariables);
             //Request a string response from the provided URL
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                     new Response.Listener<String>() {
@@ -183,7 +168,6 @@ public class SignInFragment extends Fragment {
                     return params;
                 }
             };
-            showProgress(false);
             //add the request to the RequestQueue
             requestQueue.add(stringRequest);
 
@@ -197,41 +181,5 @@ public class SignInFragment extends Fragment {
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 4;
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
     }
 }
