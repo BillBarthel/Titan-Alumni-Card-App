@@ -37,6 +37,8 @@ public class SignInFragment extends Fragment {
     private static final String TAG = "SignInFragment";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
+    //Include the IP of the computer XAMPP is running on
+    private static String URL = "http://192.168.0.7/AlumniCardAndroid/signIn.php";
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -131,7 +133,7 @@ public class SignInFragment extends Fragment {
                                                     Volley.newRequestQueue(getView().getContext());
 
             String URLVariables = "?email=" + email + "&password=" + password;
-            String URL = LoginActivity.getURL().concat(URLVariables);
+            URL = URL.concat(URLVariables);
             //Request a string response from the provided URL
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                     new Response.Listener<String>() {

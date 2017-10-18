@@ -18,4 +18,10 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="db_url">localhost/AlumniCardAndroid/signIn.php?email=</string>
     <string name="title_activity_deleteme">deleteme</string>
+    <string-array name="colleges">
+        <item>College of Business</item>
+        <item>College of Education and Human Services</item>
+        <item>College of Letters and Science</item>
+        <item>College of Nursing</item>
+    </string-array>
 </resources>

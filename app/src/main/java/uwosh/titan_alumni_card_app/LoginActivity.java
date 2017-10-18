@@ -12,8 +12,6 @@ import android.os.Bundle;
 public class LoginActivity extends AppCompatActivity{
 
     private static final String TAG = "LoginActivity";
-    //Include the IP of the computer XAMPP is running on
-    private static final String URL = "http://192.168.0.7/AlumniCardAndroid/signIn.php";
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
 
@@ -36,10 +34,6 @@ public class LoginActivity extends AppCompatActivity{
         adapter.addFragment(new SignInFragment(), "SIGN IN");
         adapter.addFragment(new RegisterFragment(), "REGISTER");
         viewPager.setAdapter(adapter);
-    }
-
-    protected String getURL(){
-        return URL;
     }
 }
 
