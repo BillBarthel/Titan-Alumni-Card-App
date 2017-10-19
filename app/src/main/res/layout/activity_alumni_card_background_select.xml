@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context="uwosh.titan_alumni_card_app.AlumniCardBackgroundSelectActivity">
+
+    <RadioGroup
+        android:id="@+id/radioSex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <RadioButton
+            android:id="@+id/clash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CLASH"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/cob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="COB" />
+
+        <RadioButton
+            android:id="@+id/scape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SCAPE" />
+
+        <Button
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DONE"/>
+
+    </RadioGroup>
+
+</android.support.constraint.ConstraintLayout>

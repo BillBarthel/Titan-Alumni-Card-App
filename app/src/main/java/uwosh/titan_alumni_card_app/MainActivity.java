@@ -224,9 +224,9 @@ public class MainActivity extends AppCompatActivity {
         lastName = userVariables[4];
         collegeAttended = userVariables[5];
         graduationYear = userVariables[6];
-        //qrCode = userVariables[];
         alumnPhoto = userVariables[7];
-        backgroundImage = Integer.valueOf(userName = userVariables[0]);
+        backgroundImage = Integer.valueOf(userVariables[8]);
+        //qrCode = userVariables[9];
     }
 
 }

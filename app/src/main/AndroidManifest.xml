@@ -27,7 +27,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".AlumniCardBackgroundSelectActivity"></activity>
     </application>
 
 </manifest>
