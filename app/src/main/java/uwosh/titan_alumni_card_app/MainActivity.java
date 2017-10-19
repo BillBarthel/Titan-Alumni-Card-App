@@ -1,6 +1,7 @@
 package uwosh.titan_alumni_card_app;
 
 import android.app.ActionBar;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,10 +21,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
     private static String id;
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     //private static String qrCode;
     private static String alumnPhoto;
     private static int backgroundImage;
+    private ViewStub cardBackground;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -60,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        cardBackground = (ViewStub) findViewById(R.id.cardBackground);
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -95,6 +103,37 @@ public class MainActivity extends AppCompatActivity {
      * name and college graduated from
      */
     private void displayUserVariables(){
+
+        //((BitmapDrawable)cardBackground.getDrawable()).getBitmap().recycle();
+        //cardBackground = (ImageView) findViewById(R.id.cardBackground);
+        ViewStub stub = (ViewStub) findViewById(R.id.cardBackground);
+        stub.setLayoutResource(R.layout.background2);
+        View inflated = stub.inflate();
+        /*
+        int id = getResources().getIdentifier("yourpackagename:drawable/clashalumnicardtemplate", null, null);
+        Toast.makeText(getApplicationContext(), "backgroundImage: " + backgroundImage, Toast.LENGTH_LONG).show();
+        cardBackground.setImageResource(id);
+        if(backgroundImage == 1){
+            cardBackground.setBackgroundResource(R.drawable.clashalumnicardtemplate);
+        }else if(backgroundImage == 2){
+            cardBackground.setImageResource(R.drawable.cobalumnicardtemplate);
+        }else{
+
+        }
+
+        switch (backgroundImage){
+            case 1:
+                cardBackground.setBackgroundResource(R.drawable.clashalumnicardtemplate);
+                break;
+            case 2:
+                cardBackground.setImageResource(R.drawable.cobalumnicardtemplate);
+                break;
+            case 3:
+                cardBackground.setImageResource(R.drawable.scapealumnicard);
+                break;
+        }
+        */
+
         boolean longName = false;
         boolean longCollege = false;
         TextView[] alumniCardTextFields = getTextViews();
