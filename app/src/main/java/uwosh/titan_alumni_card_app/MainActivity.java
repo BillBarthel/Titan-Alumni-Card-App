@@ -1,34 +1,16 @@
 package uwosh.titan_alumni_card_app;
 
-import android.app.ActionBar;
-import android.graphics.drawable.BitmapDrawable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.ViewStub;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
     private static String id;
@@ -53,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
      *
      *
      * This is the activity which the fragments are based off of
-     * This is the background, fragment_main is the forground
+     * This is the cobcardbackground, fragment_main is the forground
      */
     //private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -104,35 +86,18 @@ public class MainActivity extends AppCompatActivity {
      */
     private void displayUserVariables(){
 
-        //((BitmapDrawable)cardBackground.getDrawable()).getBitmap().recycle();
-        //cardBackground = (ImageView) findViewById(R.id.cardBackground);
-        ViewStub stub = (ViewStub) findViewById(R.id.cardBackground);
-        stub.setLayoutResource(R.layout.background2);
-        View inflated = stub.inflate();
-        /*
-        int id = getResources().getIdentifier("yourpackagename:drawable/clashalumnicardtemplate", null, null);
-        Toast.makeText(getApplicationContext(), "backgroundImage: " + backgroundImage, Toast.LENGTH_LONG).show();
-        cardBackground.setImageResource(id);
-        if(backgroundImage == 1){
-            cardBackground.setBackgroundResource(R.drawable.clashalumnicardtemplate);
-        }else if(backgroundImage == 2){
-            cardBackground.setImageResource(R.drawable.cobalumnicardtemplate);
-        }else{
-
-        }
-
         switch (backgroundImage){
             case 1:
-                cardBackground.setBackgroundResource(R.drawable.clashalumnicardtemplate);
+                cardBackground.setLayoutResource(R.layout.clashcardbackground);
                 break;
             case 2:
-                cardBackground.setImageResource(R.drawable.cobalumnicardtemplate);
+                cardBackground.setLayoutResource(R.layout.cobcardbackground);
                 break;
             case 3:
-                cardBackground.setImageResource(R.drawable.scapealumnicard);
+                cardBackground.setLayoutResource(R.layout.scapecardbackground);
                 break;
         }
-        */
+        cardBackground.inflate();
 
         boolean longName = false;
         boolean longCollege = false;
@@ -168,19 +133,35 @@ public class MainActivity extends AppCompatActivity {
         //Convert pd to pixels. The number in applyDimension is the dp value
         float leftPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 20, getResources().getDisplayMetrics());
+
         float bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 30, getResources().getDisplayMetrics());
+        if(backgroundImage == 3){//scapealumnicard needs +3 to all bottom paddings
+            bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    33, getResources().getDisplayMetrics());
+        }
         //Get the first TextView, @+id/nameLine1
         ViewGroup.MarginLayoutParams textView = (ViewGroup.MarginLayoutParams)
                                             alumniCardTextFields[0].getLayoutParams();
 
+        //Make separate helper functions. Looks like crap with the specifications for the scape background
         if(!longName && !longCollege){
-            bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    28, getResources().getDisplayMetrics());
+            if(backgroundImage == 3){//scapealumnicard needs +3 to all bottom paddings
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        31, getResources().getDisplayMetrics());
+            }else {
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        28, getResources().getDisplayMetrics());
+            }
             textView.setMargins((int)leftPadding, 0, 0, (int)bottomPadding);
             textView = (ViewGroup.MarginLayoutParams) alumniCardTextFields[2].getLayoutParams();
-            bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8,
-                    getResources().getDisplayMetrics());
+            if(backgroundImage == 3){//scapealumnicard needs +3 to all bottom paddings
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        11, getResources().getDisplayMetrics());
+            }else {
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        8, getResources().getDisplayMetrics());
+            }
             textView.setMargins((int)leftPadding, 0, 0, (int)bottomPadding);
             //Hide the unused TextViews
             alumniCardTextFields[1].setVisibility(View.INVISIBLE);
@@ -188,23 +169,43 @@ public class MainActivity extends AppCompatActivity {
         }else if(longName){
             textView.setMargins((int)leftPadding, 0, 0, (int)bottomPadding);
             textView = (ViewGroup.MarginLayoutParams) alumniCardTextFields[1].getLayoutParams();
-            bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18,
-                    getResources().getDisplayMetrics());
+            if(backgroundImage == 3){//scapealumnicard needs +3 to all bottom paddings
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        21, getResources().getDisplayMetrics());
+            }else {
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        18, getResources().getDisplayMetrics());
+            }
             textView.setMargins((int)leftPadding, 0, 0, (int)bottomPadding);
             textView = (ViewGroup.MarginLayoutParams) alumniCardTextFields[2].getLayoutParams();
-            bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6,
-                    getResources().getDisplayMetrics());
+            if(backgroundImage == 3){//scapealumnicard needs +3 to all bottom paddings
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        9, getResources().getDisplayMetrics());
+            }else {
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        6, getResources().getDisplayMetrics());
+            }
             textView.setMargins((int)leftPadding, 0, 0, (int)bottomPadding);
             alumniCardTextFields[1].setVisibility(View.INVISIBLE);
         }else if(longCollege){
             textView.setMargins((int)leftPadding, 0, 0, (int)bottomPadding);
             textView = (ViewGroup.MarginLayoutParams) alumniCardTextFields[2].getLayoutParams();
-            bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18,
-                                                                getResources().getDisplayMetrics());
+            if(backgroundImage == 3){//scapealumnicard needs +3 to all bottom paddings
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        21, getResources().getDisplayMetrics());
+            }else {
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        18, getResources().getDisplayMetrics());
+            }
             textView.setMargins((int)leftPadding, 0, 0, (int)bottomPadding);
             textView = (ViewGroup.MarginLayoutParams) alumniCardTextFields[3].getLayoutParams();
-            bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6,
-                                                                getResources().getDisplayMetrics());
+            if(backgroundImage == 3){//scapealumnicard needs +3 to all bottom paddings
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        9, getResources().getDisplayMetrics());
+            }else {
+                bottomPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        6, getResources().getDisplayMetrics());
+            }
             textView.setMargins((int)leftPadding, 0, 0, (int)bottomPadding);
             alumniCardTextFields[1].setVisibility(View.INVISIBLE);
         }
