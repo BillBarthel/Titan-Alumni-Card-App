@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         boolean longName = false;
         boolean longCollege = false;
         TextView[] alumniCardTextFields = getTextViews();
+        alumniCardTextFields[5].setText(id);
 
         int nameLength = firstName.length() + lastName.length();
         //display name on two lines
@@ -211,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //TODO: Replace array with private class TextView variables
     private TextView[] getTextViews(){
         TextView[] alumniCardTextFields = new TextView[7];
         alumniCardTextFields[0] = (TextView) findViewById(R.id.nameLine1);
@@ -252,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Sets variables to the corresponding user data
+     * Sets variables to the corresponding user data. SHould set these as text fields
      * @param userData data pulled from database
      */
     private void setUserVariables(String userData){
