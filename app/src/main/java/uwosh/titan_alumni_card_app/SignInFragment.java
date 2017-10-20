@@ -149,7 +149,8 @@ public class SignInFragment extends Fragment {
                                 startActivity(i);
                             }else{
                                 //login failed. prompt to re-enter credentials
-                                mPasswordView.setError("Invalid email or password.");
+                                mPasswordView.setError(response);
+                                //mPasswordView.setError("Invalid email or password.");
                                 mPasswordView.requestFocus();
                             }
                         }

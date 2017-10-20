@@ -23,8 +23,8 @@
             <ViewStub
                 android:id="@+id/cardBackground"
                 android:inflatedId="@id/cardBackground"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="1dp"
+                android:layout_height="1dp" />
 
         </RelativeLayout>
 
@@ -46,6 +46,38 @@
                 android:orientation="vertical" >
             </LinearLayout>
         </ScrollView>
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonChoose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select" />
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:hint="Name For Image"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
