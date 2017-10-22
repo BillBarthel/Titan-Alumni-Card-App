@@ -38,7 +38,9 @@ public class SignInFragment extends Fragment {
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     //Include the IP of the computer XAMPP is running on
-    private static String URL = "http://192.168.0.7/AlumniCardAndroid/signIn.php";
+    //private static String URL = "http://192.168.0.7/AlumniCardAndroid/signIn.php";
+    //Include the url of where the db is being hosted
+    private static String URL = "http://uwoshalumnicardextra.000webhostapp.com/signIn.php";
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -98,10 +100,10 @@ public class SignInFragment extends Fragment {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        //final String email = mEmailView.getText().toString();
-        //final String password = mPasswordView.getText().toString();
-        final String email = "tname@alumni.uwosh.edu";
-        final String password = "admin";
+        final String email = mEmailView.getText().toString();
+        final String password = mPasswordView.getText().toString();
+        //final String email = "tname@alumni.uwosh.edu";
+        //final String password = "admin";
 
         boolean cancel = false;
         View focusView = null;

@@ -65,7 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Uri to store the image uri
     private Uri filePath;
 
-    private String UPLOAD_URL = "http://192.168.0.7/AlumniCardAndroid/upload.php";
+    //Include the IP of the computer XAMPP is running on
+    //private static String URL = "http://192.168.0.7/AlumniCardAndroid/upload.php";
+    //Include the url of where the db is being hosted
+    private static String UPLOAD_URL = "http://uwoshalumnicardextra.000webhostapp.com/upload.php";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -106,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Setting clicklistener
         buttonChoose.setOnClickListener(this);
         buttonUpload.setOnClickListener(this);
-
 
         //Set user data received from database
         String userData = getIntent().getStringExtra("USER_DATA");

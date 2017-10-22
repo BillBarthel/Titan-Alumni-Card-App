@@ -25,7 +25,10 @@ public class AlumniCardBackgroundSelectActivity extends AppCompatActivity {
     private RadioButton selectedBackground;
     private Button getSelectedBackground;
     private int alumniCardBackground;
-    private static String URL = "http://192.168.0.7/AlumniCardAndroid/setbackground.php";
+    //Include the IP of the computer XAMPP is running on
+    //private static String URL = "http://192.168.0.7/AlumniCardAndroid/setbackground.php";
+    //Include the url of where the db is being hosted
+    private static String URL = "http://uwoshalumnicardextra.000webhostapp.com/setbackground.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

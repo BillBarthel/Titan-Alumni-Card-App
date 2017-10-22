@@ -40,7 +40,9 @@ public class RegisterFragment extends Fragment {
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     //Include the IP of the computer XAMPP is running on
-    private static String URL = "http://192.168.0.7/AlumniCardAndroid/register.php";
+    //private static String URL = "http://192.168.0.7/AlumniCardAndroid/register.php";
+    //Include the url of where the db is being hosted
+    private static String URL = "http://uwoshalumnicardextra.000webhostapp.com/register.php";
 
     // UI references.
     private EditText mFirstName;
