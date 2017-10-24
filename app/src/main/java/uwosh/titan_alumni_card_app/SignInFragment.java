@@ -100,10 +100,10 @@ public class SignInFragment extends Fragment {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        final String email = mEmailView.getText().toString();
-        final String password = mPasswordView.getText().toString();
-        //final String email = "tname@alumni.uwosh.edu";
-        //final String password = "admin";
+        //final String email = mEmailView.getText().toString();
+        //final String password = mPasswordView.getText().toString();
+        final String email = "barthw52@alumni.uwosh.edu";
+        final String password = "admin";
 
         boolean cancel = false;
         View focusView = null;
