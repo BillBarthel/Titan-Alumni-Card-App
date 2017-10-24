@@ -25,6 +25,7 @@
         android:layout_alignTop="@id/cardBackground"
         android:layout_marginTop="67dp"
         android:layout_marginLeft="20dp"
+        android:visibility="invisible"
         app:srcCompat="@drawable/defaultprofilepicture" />
 
     <TextView

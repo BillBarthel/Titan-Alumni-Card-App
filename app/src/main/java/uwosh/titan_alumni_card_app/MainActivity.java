@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Initializing views
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
-        imageView = (ImageView) findViewById(R.id.imageView);
         editText = (EditText) findViewById(R.id.editTextName);
 
         //Setting clicklistener
@@ -116,10 +115,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         displayUserVariables();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        imageView = (ImageView) findViewById(R.id.profilePic);
+    }
+
     /*
-    * This is the method responsible for image upload
-    * We need the full image path and the name for the image in this method
-    * */
+        * This is the method responsible for image upload
+        * We need the full image path and the name for the image in this method
+        * */
     public void uploadMultipart() {
         //getting name for the image
         String name = editText.getText().toString().trim();
@@ -147,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //method to show file chooser
     private void showFileChooser() {
+        //imageView.setVisibility(View.VISIBLE);
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -163,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
+                imageView.setVisibility(View.VISIBLE);
 
             } catch (IOException e) {
                 e.printStackTrace();
