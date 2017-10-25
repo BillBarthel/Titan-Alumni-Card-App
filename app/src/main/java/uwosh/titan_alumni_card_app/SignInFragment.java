@@ -134,7 +134,9 @@ public class SignInFragment extends Fragment {
             @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
                                                     Volley.newRequestQueue(getView().getContext());
 
+
             String URLVariables = "?email=" + email + "&password=" + password;
+
             URL = URL.concat(URLVariables);
             //Request a string response from the provided URL
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,

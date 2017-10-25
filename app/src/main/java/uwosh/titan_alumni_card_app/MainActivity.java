@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
@@ -16,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +30,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import net.gotev.uploadservice.MultipartUploadRequest;
 import net.gotev.uploadservice.UploadNotificationConfig;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static String id;
@@ -53,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView imageView;
     private EditText editText;
 
+    private ImageView profilePicture;
+    private boolean firstLoad = true;
+
     //Image request code
     private int PICK_IMAGE_REQUEST = 1;
 
@@ -69,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //private static String URL = "http://192.168.0.7/AlumniCardAndroid/upload.php";
     //Include the url of where the db is being hosted
     private static String UPLOAD_URL = "http://uwoshalumnicardextra.000webhostapp.com/upload.php";
+    private static String IMAGE_FETCH_URL = "http://uwoshalumnicardextra.000webhostapp.com/getphoto.php";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -113,21 +133,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String userData = getIntent().getStringExtra("USER_DATA");
         setUserVariables(userData);
         displayUserVariables();
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         imageView = (ImageView) findViewById(R.id.profilePic);
+        if(!alumnPhoto.equals("NULL") && firstLoad){
+            String img = "https://uwoshalumnicardextra.000webhostapp.com/photo/" + alumnPhoto;
+            new DownloadImageTask(imageView).execute(img);
+            firstLoad = false;
+        }
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+            bmImage.setVisibility(View.VISIBLE);
+        }
     }
 
     /*
         * This is the method responsible for image upload
         * We need the full image path and the name for the image in this method
+        * USE VOLLEY INSTEAD
         * */
     public void uploadMultipart() {
         //getting name for the image
-        String name = editText.getText().toString().trim();
+        //String name = editText.getText().toString().trim();
 
         //getting the actual path of the image
         String path = getPath(filePath);
@@ -139,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Creating a multi part request
             new MultipartUploadRequest(this, uploadId, UPLOAD_URL)
                     .addFileToUpload(path, "image") //Adding file
-                    .addParameter("name", name) //Adding text parameter to the request
+                    .addParameter("name", id.replace("0", ""))//Adding text parameter to the request
                     .setNotificationConfig(new UploadNotificationConfig())
                     .setMaxRetries(2)
                     .startUpload(); //Starting the upload
@@ -152,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //method to show file chooser
     private void showFileChooser() {
-        //imageView.setVisibility(View.VISIBLE);
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
