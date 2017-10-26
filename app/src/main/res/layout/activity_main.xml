@@ -24,8 +24,16 @@
         <ListView
             android:layout_width="fill_parent"
             android:layout_height="2dip"
-            android:background="#FF00FF00"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="#ffffff" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile Picture Options"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:gravity="center_horizontal"
@@ -37,20 +45,29 @@
                 android:id="@+id/buttonChoose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select" />
-
-            <EditText
-                android:id="@+id/editTextName"
-                android:hint="Name For Image"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text="Select" />
 
             <Button
                 android:id="@+id/buttonUpload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Upload" />
+
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Remove" />
 
         </LinearLayout>
 

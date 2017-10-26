@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static int backgroundImage;
     private ViewStub cardBackground;
 
+    private Button buttonCancel;
+    private Button buttonDelete;
+
     //UPLOAD IMAGE STUFF
     //Declaring views
     private Button buttonChoose;
@@ -124,11 +127,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Initializing views
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
-        editText = (EditText) findViewById(R.id.editTextName);
+        buttonCancel = (Button) findViewById(R.id.buttonCancel);
+        buttonDelete = (Button) findViewById(R.id.buttonDelete);
 
         //Setting clicklistener
         buttonChoose.setOnClickListener(this);
         buttonUpload.setOnClickListener(this);
+        buttonCancel.setOnClickListener(this);
+        buttonDelete.setOnClickListener(this);
 
         //Set user data received from database
         String userData = getIntent().getStringExtra("USER_DATA");
@@ -294,6 +300,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == buttonUpload) {
             uploadMultipart();
         }
+        if (v == buttonCancel) {
+            revertPhoto();
+        }
+        if (v == buttonDelete) {
+            disablePhoto();
+        }
+    }
+
+    private void revertPhoto(){
+
+    }
+
+    private void disablePhoto(){
+
     }
 
     /**
