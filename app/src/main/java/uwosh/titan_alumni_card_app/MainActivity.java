@@ -2,7 +2,9 @@ package uwosh.titan_alumni_card_app;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Bitmap;
@@ -48,6 +50,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static android.R.attr.orientation;
 import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -94,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static String UPLOAD_URL = "http://uwoshalumnicardextra.000webhostapp.com/upload.php";
     private static String IMAGE_FETCH_URL = "http://uwoshalumnicardextra.000webhostapp.com/getphoto.php";
 
+    //1 if portrait, 2 if landscape.
+    private int orientation;
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -116,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        orientation = getResources().getConfiguration().orientation;
+
         setContentView(R.layout.activity_main);
 
         cardBackground = (ViewStub) findViewById(R.id.cardBackground);
@@ -130,16 +138,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonCancel = (Button) findViewById(R.id.buttonCancel);
         buttonDelete = (Button) findViewById(R.id.buttonDelete);
 
-        //Setting clicklistener
-        buttonChoose.setOnClickListener(this);
-        buttonUpload.setOnClickListener(this);
-        buttonCancel.setOnClickListener(this);
-        buttonDelete.setOnClickListener(this);
+        if(orientation == 1){
+            //Setting clicklistener
+            buttonChoose.setOnClickListener(this);
+            buttonUpload.setOnClickListener(this);
+            buttonCancel.setOnClickListener(this);
+            buttonDelete.setOnClickListener(this);
+        }
 
         //Set user data received from database
         String userData = getIntent().getStringExtra("USER_DATA");
         setUserVariables(userData);
         displayUserVariables();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_main);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            setContentView(R.layout.activity_main);
+        }
     }
 
     @Override
@@ -201,6 +223,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .addParameter("name", id.replace("0", ""))
                          .setMaxRetries(2)
                          .startUpload(); //Starting the upload
+
+                //Update the class variable
+                alumnPhoto = id.replace("0", "");
 
             } catch (Exception exc) {
                 Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
@@ -309,11 +334,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void revertPhoto(){
-
+        if(alumnPhoto.equals("NULL")){
+            imageView.setVisibility(View.INVISIBLE);
+        }else{
+            //Very inefficient. Should store the image first time it's accessed.
+            String img = "https://uwoshalumnicardextra.000webhostapp.com/photo/" + alumnPhoto;
+            new DownloadImageTask(imageView).execute(img);
+        }
     }
 
     private void disablePhoto(){
 
+        String temp = id.replace("0", "");
+        String URL = "http://uwoshalumnicardextra.000webhostapp.com/removephoto.php?alumnusid=";
+        URL = URL.concat(temp);
+            @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
+                    Volley.newRequestQueue(this.getApplicationContext());
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            //check the response from the server
+                            if(response.equals("success")){
+                                //Database wasn't updated
+                                imageView.setVisibility(View.INVISIBLE);
+                                alumnPhoto = "NULL";
+                            }else{
+                                Toast.makeText(getApplicationContext(),"Your image could not be deleted at this time.",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            //error in sending request
+                            Toast.makeText(getApplicationContext(),error.toString() + " onErrorResponse",Toast.LENGTH_LONG).show();
+                        }
+                    }){
+                //add parameters to the request
+                @Override
+                protected Map<String,String> getParams(){
+                    //Map<String,String> params = new HashMap<>();
+                    return null;
+                }
+            };
+            //add the request to the RequestQueue
+            requestQueue.add(stringRequest);
     }
 
     /**
