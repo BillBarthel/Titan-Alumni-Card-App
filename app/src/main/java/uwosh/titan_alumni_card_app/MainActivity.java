@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -133,8 +134,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String userData = getIntent().getStringExtra("USER_DATA");
         setUserVariables(userData);
         displayUserVariables();
-
-
     }
 
     @Override
@@ -182,24 +181,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void uploadMultipart() {
         //getting name for the image
         //String name = editText.getText().toString().trim();
-
-        //getting the actual path of the image
-        String path = getPath(filePath);
-
-        //Uploading code
         try {
-            String uploadId = UUID.randomUUID().toString();
+            //getting the actual path of the image
+            String path = getPath(filePath);
 
-            //Creating a multi part request
-            new MultipartUploadRequest(this, uploadId, UPLOAD_URL)
-                    .addFileToUpload(path, "image") //Adding file
-                    .addParameter("name", id.replace("0", ""))//Adding text parameter to the request
-                    .setNotificationConfig(new UploadNotificationConfig())
-                    .setMaxRetries(2)
-                    .startUpload(); //Starting the upload
+            //Uploading code
+            try {
+                String uploadId = UUID.randomUUID().toString();
 
-        } catch (Exception exc) {
-            Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
+                 //Creating a multi part request
+                 new MultipartUploadRequest(this, uploadId, UPLOAD_URL)
+                        .addFileToUpload(path, "image") //Adding file
+                        .addParameter("name", id.replace("0", ""))
+                         .setMaxRetries(2)
+                         .startUpload(); //Starting the upload
+
+            } catch (Exception exc) {
+                Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+        }catch (CursorIndexOutOfBoundsException e){
+            Toast.makeText(this, "Image must be saved to device.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -218,8 +220,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
+            //filePath = data.getData();
             try {
+                filePath = data.getData();
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
                 imageView.setVisibility(View.VISIBLE);
@@ -242,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
         cursor.moveToFirst();
-        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
         cursor.close();
 
         return path;
