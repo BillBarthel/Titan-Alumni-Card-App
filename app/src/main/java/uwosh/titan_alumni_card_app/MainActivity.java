@@ -209,6 +209,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void uploadMultipart() {
         //getting name for the image
         //String name = editText.getText().toString().trim();
+        if(imageView.getVisibility()==View.VISIBLE){
+
+
         try {
             //getting the actual path of the image
             String path = getPath(filePath);
@@ -226,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 //Update the class variable
                 alumnPhoto = id.replace("0", "");
+                Toast.makeText(this, "Profile picture saved!", Toast.LENGTH_SHORT).show();
 
             } catch (Exception exc) {
                 Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
@@ -233,6 +237,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }catch (CursorIndexOutOfBoundsException e){
             Toast.makeText(this, "Image must be saved to device.", Toast.LENGTH_SHORT).show();
+        }
+        }else{
+            Toast.makeText(this, "No image selected.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void makeToast(String message, String length){
+        if(length.equals("short")){
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -337,10 +352,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(alumnPhoto.equals("NULL")){
             imageView.setVisibility(View.INVISIBLE);
         }else{
-            //Very inefficient. Should store the image first time it's accessed.
+            //Very inefficient. Should store db photo in image view if applicable.
             String img = "https://uwoshalumnicardextra.000webhostapp.com/photo/" + alumnPhoto;
             new DownloadImageTask(imageView).execute(img);
         }
+        makeToast("Selected image reset", "short");
     }
 
     private void disablePhoto(){
@@ -361,7 +377,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 imageView.setVisibility(View.INVISIBLE);
                                 alumnPhoto = "NULL";
                             }else{
-                                Toast.makeText(getApplicationContext(),"Your image could not be deleted at this time.",Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(),"Your image could not be deleted at this time.",Toast.LENGTH_LONG).show();
                             }
                         }
                     },

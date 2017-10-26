@@ -147,7 +147,6 @@ public class SignInFragment extends Fragment {
                             String[] result = response.split("-");
                             if(result[0].equals("success")){
                                 //login authenticated. Start the next activity
-                                Toast.makeText(getContext(), "Logged In", Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                                 i.putExtra("USER_DATA",result[1]);
                                 startActivity(i);

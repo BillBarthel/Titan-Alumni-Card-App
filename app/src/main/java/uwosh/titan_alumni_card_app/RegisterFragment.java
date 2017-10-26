@@ -193,9 +193,7 @@ public class RegisterFragment extends Fragment {
                             //check the response from the server
                             String[] result = response.split("-");
                             if(result[0].equals("success")){
-                                //login authenticated. Start the next activity
-                                Toast.makeText(getContext(), "Registered AND Logged In", Toast.LENGTH_SHORT).show();
-                                //Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                                //Registratino authenticated. Start the next activity
                                 Intent i = new Intent(getActivity().getApplicationContext(), AlumniCardBackgroundSelectActivity.class);
                                 i.putExtra("USER_DATA",result[1]);
                                 startActivity(i);
