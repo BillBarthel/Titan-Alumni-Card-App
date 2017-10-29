@@ -168,15 +168,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         imageView = (ImageView) findViewById(R.id.profilePic);
-        if(!alumnPhoto.equals("NULL") && firstLoad){
+        if (!alumnPhoto.equals(null) && firstLoad){
             String img = "https://uwoshalumnicardextra.000webhostapp.com/photo/" + alumnPhoto;
-            new DownloadImageTask(imageView).execute(img);
-            firstLoad = false;
+            DownloadImageTask imgTask = new DownloadImageTask(imageView);
+            imgTask.execute(img);
+            profilePicture = imgTask.getImage();
+
+            //if(profilePicture.getDrawable() != null && firstLoad){
+                imageView = profilePicture;
+                firstLoad = false;
+                imageView.setVisibility(View.VISIBLE);
+            //}
+        } else{
+            makeToast("no profile pic", "long");
+        }
+    }
+
+    private void revertPhoto(){
+        if(alumnPhoto.equals(null)){
+            imageView.setVisibility(View.INVISIBLE);
+        }else{
+            imageView = profilePicture;
+            imageView.setVisibility(View.VISIBLE);
+            makeToast("Selected image reset", "short");
         }
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+        private ImageView bmImage;
 
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
@@ -197,7 +216,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
-            bmImage.setVisibility(View.VISIBLE);
+            //bmImage.setVisibility(View.VISIBLE);
+        }
+
+        protected ImageView getImage(){
+            return bmImage;
         }
     }
 
@@ -209,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void uploadMultipart() {
         //getting name for the image
         //String name = editText.getText().toString().trim();
-        if(imageView.getVisibility()==View.VISIBLE){
+        //if(imageView.getVisibility()==View.VISIBLE){
 
 
         try {
@@ -238,9 +261,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }catch (CursorIndexOutOfBoundsException e){
             Toast.makeText(this, "Image must be saved to device.", Toast.LENGTH_SHORT).show();
         }
-        }else{
-            Toast.makeText(this, "No image selected.", Toast.LENGTH_SHORT).show();
-        }
+        //}else{
+        //    Toast.makeText(this, "No image selected.", Toast.LENGTH_SHORT).show();
+        //}
     }
 
     private void makeToast(String message, String length){
@@ -258,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        //uploadMultipart();
     }
 
     //handling the image chooser activity result
@@ -272,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
                 imageView.setVisibility(View.VISIBLE);
+                uploadMultipart();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -338,25 +363,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             showFileChooser();
         }
         if (v == buttonUpload) {
-            uploadMultipart();
+            //uploadMultipart();
         }
         if (v == buttonCancel) {
-            revertPhoto();
+            //revertPhoto();
         }
         if (v == buttonDelete) {
             disablePhoto();
         }
-    }
-
-    private void revertPhoto(){
-        if(alumnPhoto.equals("NULL")){
-            imageView.setVisibility(View.INVISIBLE);
-        }else{
-            //Very inefficient. Should store db photo in image view if applicable.
-            String img = "https://uwoshalumnicardextra.000webhostapp.com/photo/" + alumnPhoto;
-            new DownloadImageTask(imageView).execute(img);
-        }
-        makeToast("Selected image reset", "short");
     }
 
     private void disablePhoto(){

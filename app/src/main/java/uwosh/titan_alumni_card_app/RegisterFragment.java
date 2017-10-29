@@ -177,8 +177,6 @@ public class RegisterFragment extends Fragment {
             @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
                     Volley.newRequestQueue(getView().getContext());
 
-            Toast.makeText(getContext(), collegeAttended, Toast.LENGTH_LONG).show();
-
             String URLVariables = "?firstName=" + firstName + "&lastName=" + lastName +
                                   "&collegeAttended=" + collegeAttended + "&graduationYear=" +
                                   graduationYear + "&email=" + email + "&password=" + password +
