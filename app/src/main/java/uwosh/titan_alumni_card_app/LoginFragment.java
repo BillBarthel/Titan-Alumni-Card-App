@@ -33,8 +33,8 @@ import java.util.Map;
  * Created by Bill on 10/16/2017.
  */
 
-public class SignInFragment extends Fragment {
-    private static final String TAG = "SignInFragment";
+public class LoginFragment extends Fragment {
+    private static final String TAG = "LoginFragment";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     //Include the IP of the computer XAMPP is running on
@@ -100,10 +100,10 @@ public class SignInFragment extends Fragment {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        final String email = mEmailView.getText().toString();
-        final String password = mPasswordView.getText().toString();
-        //final String email = "barthw52@alumni.uwosh.edu";
-        //final String password = "admin";
+        //final String email = mEmailView.getText().toString();
+        //final String password = mPasswordView.getText().toString();
+        final String email = "a@alumni.uwosh.edu";
+        final String password = "admin";
 
         boolean cancel = false;
         View focusView = null;

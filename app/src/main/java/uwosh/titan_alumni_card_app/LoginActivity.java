@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity{
 
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SignInFragment(), "SIGN IN");
+        adapter.addFragment(new LoginFragment(), "SIGN IN");
         adapter.addFragment(new RegisterFragment(), "REGISTER");
         viewPager.setAdapter(adapter);
     }

@@ -21,8 +21,8 @@
         android:layout_width="80dp"
         android:layout_height="93dp"
         android:layout_alignTop="@id/cardBackground"
-        android:layout_marginTop="67dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginLeft="29dp"
         android:visibility="invisible"/>
 
     <TextView
@@ -96,5 +96,6 @@
         android:layout_marginLeft="210dp"
         android:text="QR Code"
         android:textColor="#FFFFFF"
-        android:textSize="12sp"/>
+        android:textSize="12sp"
+        android:visibility="invisible"/>
 </RelativeLayout>

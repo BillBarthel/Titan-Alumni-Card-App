@@ -134,15 +134,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Initializing views
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
-        buttonUpload = (Button) findViewById(R.id.buttonUpload);
-        buttonCancel = (Button) findViewById(R.id.buttonCancel);
+        //buttonUpload = (Button) findViewById(R.id.buttonUpload);
+        //buttonCancel = (Button) findViewById(R.id.buttonCancel);
         buttonDelete = (Button) findViewById(R.id.buttonDelete);
 
         if(orientation == 1){
             //Setting clicklistener
             buttonChoose.setOnClickListener(this);
-            buttonUpload.setOnClickListener(this);
-            buttonCancel.setOnClickListener(this);
+            //buttonUpload.setOnClickListener(this);
+            //buttonCancel.setOnClickListener(this);
             buttonDelete.setOnClickListener(this);
         }
 
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             setContentView(R.layout.activity_main);
         }
     }
-
+/*
     @Override
     protected void onStart() {
         super.onStart();
@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             makeToast("no profile pic", "long");
         }
     }
+    */
 
     private void revertPhoto(){
         if(alumnPhoto.equals(null)){
@@ -361,12 +362,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v == buttonChoose) {
             showFileChooser();
-        }
-        if (v == buttonUpload) {
-            //uploadMultipart();
-        }
-        if (v == buttonCancel) {
-            //revertPhoto();
         }
         if (v == buttonDelete) {
             disablePhoto();
@@ -587,7 +582,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * Sets variables to the corresponding user data. SHould set these as text fields
+     * Sets variables to the corresponding user data. Should set these as text fields
      * @param userData data pulled from database
      */
     private void setUserVariables(String userData){
