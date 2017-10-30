@@ -9,21 +9,9 @@
     android:fitsSystemWindows="true"
     tools:context="uwosh.titan_alumni_card_app.LoginActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="138dp">
 
-        <include layout="@layout/header"/>
+    <include layout="@layout/header"/>
 
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/login_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FF65"/>
-
-    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
