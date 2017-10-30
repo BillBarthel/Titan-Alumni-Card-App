@@ -13,6 +13,14 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
+        <ImageView
+            android:id="@+id/a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/picture1" />
+
         <RadioButton
             android:id="@+id/clash"
             android:layout_width="wrap_content"
@@ -20,11 +28,27 @@
             android:text="CLASH"
             android:checked="true" />
 
+        <ImageView
+            android:id="@+id/b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/picture2" />
+
         <RadioButton
             android:id="@+id/cob"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="COB" />
+
+        <ImageView
+            android:id="@+id/c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/picture3" />
 
         <RadioButton
             android:id="@+id/scape"

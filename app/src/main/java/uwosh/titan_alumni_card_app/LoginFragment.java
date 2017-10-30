@@ -100,10 +100,10 @@ public class LoginFragment extends Fragment {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        //final String email = mEmailView.getText().toString();
-        //final String password = mPasswordView.getText().toString();
-        final String email = "a@alumni.uwosh.edu";
-        final String password = "admin";
+        final String email = mEmailView.getText().toString();
+        final String password = mPasswordView.getText().toString();
+        //final String email = "a@alumni.uwosh.edu";
+        //final String password = "admin";
 
         boolean cancel = false;
         View focusView = null;
@@ -147,7 +147,8 @@ public class LoginFragment extends Fragment {
                             String[] result = response.split("-");
                             if(result[0].equals("success")){
                                 //login authenticated. Start the next activity
-                                Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                                //Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                                Intent i = new Intent(getActivity().getApplicationContext(), AlumniCardBackgroundSelectActivity.class);
                                 i.putExtra("USER_DATA",result[1]);
                                 startActivity(i);
                             }else{

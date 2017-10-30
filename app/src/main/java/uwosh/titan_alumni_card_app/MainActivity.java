@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             setContentView(R.layout.activity_main);
         }
     }
-/*
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -180,18 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 imageView.setVisibility(View.VISIBLE);
             //}
         } else{
-            makeToast("no profile pic", "long");
-        }
-    }
-    */
-
-    private void revertPhoto(){
-        if(alumnPhoto.equals(null)){
-            imageView.setVisibility(View.INVISIBLE);
-        }else{
-            imageView = profilePicture;
-            imageView.setVisibility(View.VISIBLE);
-            makeToast("Selected image reset", "short");
+            //No profile picture to display
         }
     }
 
@@ -274,7 +263,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
     }
-
 
     //method to show file chooser
     private void showFileChooser() {
