@@ -35,5 +35,11 @@ public class LoginActivity extends AppCompatActivity{
         adapter.addFragment(new RegisterFragment(), "REGISTER");
         viewPager.setAdapter(adapter);
     }
+
+    @Override
+    public void onBackPressed() {
+        //Prevents calling finish() when pressing the Back button
+        moveTaskToBack(true);
+    }
 }
 

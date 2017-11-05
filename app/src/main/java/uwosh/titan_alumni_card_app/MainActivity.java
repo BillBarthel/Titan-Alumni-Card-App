@@ -337,10 +337,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //If permission is granted
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //Displaying a toast
-                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
             } else {
                 //Displaying another toast if permission is not granted
-                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "You need to grant permission to upload a personal photo", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -587,4 +587,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //qrCode = userVariables[9];
     }
 
+    @Override
+    public void onBackPressed() {
+        //Prevents calling finish() when pressing the Back button
+        moveTaskToBack(true);
+    }
 }

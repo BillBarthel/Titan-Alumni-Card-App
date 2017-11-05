@@ -147,10 +147,12 @@ public class LoginFragment extends Fragment {
                             String[] result = response.split("-");
                             if(result[0].equals("success")){
                                 //login authenticated. Start the next activity
-                                //Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                                Intent i = new Intent(getActivity().getApplicationContext(), AlumniCardBackgroundSelectActivity.class);
+                                Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                                //Intent i = new Intent(getActivity().getApplicationContext(), AlumniCardBackgroundSelectActivity.class);
                                 i.putExtra("USER_DATA",result[1]);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(i);
+                                getActivity().finish();
                             }else{
                                 //login failed. prompt to re-enter credentials
                                 mPasswordView.setError(response);
@@ -177,7 +179,6 @@ public class LoginFragment extends Fragment {
             };
             //add the request to the RequestQueue
             requestQueue.add(stringRequest);
-
         }
     }
 

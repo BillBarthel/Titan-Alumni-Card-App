@@ -195,6 +195,7 @@ public class RegisterFragment extends Fragment {
                                 Intent i = new Intent(getActivity().getApplicationContext(), AlumniCardBackgroundSelectActivity.class);
                                 i.putExtra("USER_DATA",result[1]);
                                 startActivity(i);
+                                getActivity().finish();
                             }else{
                                 //login failed. prompt to re-enter credentials
                                 mPasswordView.setError(response);

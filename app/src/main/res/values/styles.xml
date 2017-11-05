@@ -8,6 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="UserInput">
+        <item name="android:textColor">@color/test</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="lineColor">
+        <item name="android:colorControlActivated">@color/test</item>
+    </style>
+
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ProgressBar
@@ -28,7 +30,8 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/UserInput">
 
                 <AutoCompleteTextView
                     android:id="@+id/first_name"
@@ -37,13 +40,15 @@
                     android:hint="First Name"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:theme="@style/lineColor"
                     android:imeOptions="actionNext"/>
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/UserInput">
 
                 <AutoCompleteTextView
                     android:id="@+id/last_name"
@@ -52,6 +57,7 @@
                     android:hint="Last Name"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:theme="@style/lineColor"
                     android:imeOptions="actionNext"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -82,7 +88,8 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/UserInput">
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
@@ -91,13 +98,15 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:theme="@style/lineColor"
                     android:imeOptions="actionNext"/>
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/UserInput">
 
                 <EditText
                     android:id="@+id/password"
@@ -108,13 +117,15 @@
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
+                    android:theme="@style/lineColor"
                     android:maxLines="1"/>
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/UserInput">
 
                 <EditText
                     android:id="@+id/repassword"
@@ -125,6 +136,7 @@
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
+                    android:theme="@style/lineColor"
                     android:maxLines="1"/>
 
             </android.support.design.widget.TextInputLayout>

@@ -164,5 +164,12 @@ public class AlumniCardBackgroundSelectActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         i.putExtra("USER_DATA",userData.concat("," + alumniCardBackground));
         startActivity(i);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Prevents calling finish() when pressing the Back button
+        moveTaskToBack(true);
     }
 }

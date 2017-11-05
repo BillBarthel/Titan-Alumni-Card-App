@@ -21,7 +21,8 @@
             android:id="@+id/login_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FF65"/>
+            android:background="@color/UWOYellow"
+            app:tabIndicatorColor="@color/test" />
 
     </android.support.design.widget.AppBarLayout>
 
