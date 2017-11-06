@@ -5,14 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
@@ -29,6 +21,7 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hintTextAppearance="@style/UserInput">
@@ -37,11 +30,28 @@
                     android:id="@+id/first_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="First Name"
+                    android:hint="First Name *"
                     android:inputType="text"
                     android:maxLines="1"
                     android:theme="@style/lineColor"
                     android:imeOptions="actionNext"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:hintTextAppearance="@style/UserInput">
+
+                <AutoCompleteTextView
+                    android:id="@+id/middle_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Middle Name  *"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:theme="@style/lineColor" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -54,7 +64,7 @@
                     android:id="@+id/last_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Last Name"
+                    android:hint="Last Name *"
                     android:inputType="text"
                     android:maxLines="1"
                     android:theme="@style/lineColor"
@@ -66,7 +76,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="College Attended" />
+                android:text="College Attended *" />
 
             <Spinner
                 android:id="@+id/college_attended"
@@ -78,7 +88,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Graduation Year" />
+                android:text="Graduation Year *" />
 
             <Spinner
                 android:id="@+id/year_graduated"
@@ -95,7 +105,7 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
+                    android:hint="Email *"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:theme="@style/lineColor"
@@ -105,41 +115,133 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:hintTextAppearance="@style/UserInput">
 
-                <EditText
-                    android:id="@+id/password"
+                <AutoCompleteTextView
+                    android:id="@+id/mailing_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
-                    android:imeActionId="@+id/login"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:theme="@style/lineColor"
-                    android:maxLines="1"/>
+                    android:hint="Mailing Address"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:theme="@style/lineColor" />
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/UserInput">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/repassword"
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:hintTextAppearance="@style/UserInput"
+                    android:layout_weight=".5">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="City"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:theme="@style/lineColor" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:hintTextAppearance="@style/UserInput"
+                    android:layout_weight=".5">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="State/Province"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:theme="@style/lineColor" />
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:hintTextAppearance="@style/UserInput"
+                    android:layout_weight=".5">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/zip_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Zip Code"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:theme="@style/lineColor" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:hintTextAppearance="@style/UserInput"
+                    android:layout_weight=".5">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/phone_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Phone Number"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:theme="@style/lineColor" />
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Re-enter password"
-                    android:imeActionId="@+id/login"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:theme="@style/lineColor"
-                    android:maxLines="1"/>
+                    android:layout_weight="1"
+                    android:text="Fields marked with an" />
 
-            </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:id="@+id/red_asterisk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=" * "
+                    android:textColor="@color/colorAccent" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="are required" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/register_button"

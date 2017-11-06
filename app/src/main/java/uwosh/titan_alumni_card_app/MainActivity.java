@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Include the IP of the computer XAMPP is running on
     //private static String URL = "http://192.168.0.7/AlumniCardAndroid/upload.php";
     //Include the url of where the db is being hosted
-    private static String UPLOAD_URL = "http://uwoshalumnicardextra.000webhostapp.com/upload.php";
+    private static String UPLOAD_URL = "http://uwoshalumnicard.000webhostapp.com/app/upload.php";
     private static String IMAGE_FETCH_URL = "http://uwoshalumnicardextra.000webhostapp.com/getphoto.php";
 
     //1 if portrait, 2 if landscape.
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         imageView = (ImageView) findViewById(R.id.profilePic);
         if (!alumnPhoto.equals(null) && firstLoad){
-            String img = "https://uwoshalumnicardextra.000webhostapp.com/photo/" + alumnPhoto;
+            String img = "https://uwoshalumnicard.000webhostapp.com/app/photo/" + alumnPhoto;
             DownloadImageTask imgTask = new DownloadImageTask(imageView);
             imgTask.execute(img);
             profilePicture = imgTask.getImage();
@@ -359,7 +359,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void disablePhoto(){
 
         String temp = id.replace("0", "");
-        String URL = "http://uwoshalumnicardextra.000webhostapp.com/removephoto.php?alumnusid=";
+        String URL = "http://uwoshalumnicard.000webhostapp.com/app/removephoto.php?alumnusid=";
         URL = URL.concat(temp);
             @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
                     Volley.newRequestQueue(this.getApplicationContext());

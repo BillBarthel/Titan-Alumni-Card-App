@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,7 @@ public class LoginFragment extends Fragment {
     //Include the IP of the computer XAMPP is running on
     //private static String URL = "http://192.168.0.7/AlumniCardAndroid/signIn.php";
     //Include the url of where the db is being hosted
-    private static String URL = "http://uwoshalumnicardextra.000webhostapp.com/signIn.php";
+    private static String URL = "http://uwoshalumnicard.000webhostapp.com/app/signIn.php";
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -55,17 +56,6 @@ public class LoginFragment extends Fragment {
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) view.findViewById(R.id.email);
-        mPasswordView = (EditText) view.findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
 
         Button mEmailSignInButton = (Button) view.findViewById(R.id.sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
@@ -97,23 +87,14 @@ public class LoginFragment extends Fragment {
     private void attemptLogin() {
         // Reset errors.
         mEmailView.setError(null);
-        mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
         final String email = mEmailView.getText().toString();
-        final String password = mPasswordView.getText().toString();
         //final String email = "a@alumni.uwosh.edu";
         //final String password = "admin";
 
         boolean cancel = false;
         View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -134,16 +115,19 @@ public class LoginFragment extends Fragment {
             @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
                                                     Volley.newRequestQueue(getView().getContext());
 
+            String URLVariables = "?email=" + email;
+            String login = URL.concat(URLVariables);
 
-            String URLVariables = "?email=" + email + "&password=" + password;
+            //URL = URL.concat(URLVariables);
 
-            URL = URL.concat(URLVariables);
+            //Toast.makeText(getContext(),"URL: " + URL,Toast.LENGTH_LONG).show();
             //Request a string response from the provided URL
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, login,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             //check the response from the server
+                            //Toast.makeText(getContext(),"TOAST 1: " + response,Toast.LENGTH_LONG).show();
                             String[] result = response.split("-");
                             if(result[0].equals("success")){
                                 //login authenticated. Start the next activity
@@ -155,9 +139,7 @@ public class LoginFragment extends Fragment {
                                 getActivity().finish();
                             }else{
                                 //login failed. prompt to re-enter credentials
-                                mPasswordView.setError(response);
-                                //mPasswordView.setError("Invalid email or password.");
-                                mPasswordView.requestFocus();
+                                Toast.makeText(getContext(),"Invalid email.",Toast.LENGTH_LONG).show();
                             }
                         }
                     },
@@ -167,27 +149,13 @@ public class LoginFragment extends Fragment {
                             //error in sending request
                             Toast.makeText(getContext(),error.toString() + " onErrorResponse",Toast.LENGTH_LONG).show();
                         }
-                    }){
-                //add parameters to the request
-                @Override
-                protected Map<String,String> getParams(){
-                    Map<String,String> params = new HashMap<>();
-                    params.put(EMAIL,email);
-                    params.put(PASSWORD, password);
-                    return params;
-                }
-            };
+                    });
             //add the request to the RequestQueue
             requestQueue.add(stringRequest);
         }
     }
 
     private boolean isEmailValid(String email) {
-        return email.contains("@alumni.uwosh.edu");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return email.contains("@");
     }
 }

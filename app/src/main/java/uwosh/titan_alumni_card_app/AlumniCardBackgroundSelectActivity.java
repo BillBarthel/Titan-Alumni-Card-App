@@ -32,7 +32,7 @@ public class AlumniCardBackgroundSelectActivity extends AppCompatActivity {
     //Include the IP of the computer XAMPP is running on
     //private static String URL = "http://192.168.0.7/AlumniCardAndroid/setbackground.php";
     //Include the url of where the db is being hosted
-    private static String URL = "http://uwoshalumnicardextra.000webhostapp.com/setbackground.php";
+    private static String URL = "http://uwoshalumnicard.000webhostapp.com/app/setbackground.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
