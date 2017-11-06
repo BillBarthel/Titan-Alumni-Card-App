@@ -168,8 +168,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         imageView = (ImageView) findViewById(R.id.profilePic);
-        if (!alumnPhoto.equals(null) && firstLoad){
-            String img = "https://uwoshalumnicard.000webhostapp.com/app/photo/" + alumnPhoto;
+        if (!alumnPhoto.equals(null) && firstLoad && !alumnPhoto.equals("default.jpg")){
+            String img = "https://uwoshalumnicard.000webhostapp.com/Images/Uploads/" + alumnPhoto;
             DownloadImageTask imgTask = new DownloadImageTask(imageView);
             imgTask.execute(img);
             profilePicture = imgTask.getImage();
