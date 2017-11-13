@@ -167,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(this, "ALUMN PHOTO ON START: " + alumnPhoto, Toast.LENGTH_SHORT).show();
         imageView = (ImageView) findViewById(R.id.profilePic);
         if (firstLoad && !alumnPhoto.equals("default.jpg")){
             String img = "https://uwoshalumnicard.000webhostapp.com/Images/Uploads/" + alumnPhoto;
@@ -361,7 +360,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void disablePhoto(){
 
         String temp = id.replaceFirst("^0+(?!$)", "");
-        Toast.makeText(this, "USER ID: " + temp, Toast.LENGTH_SHORT).show();
         //String temp = id.replace("0", "");
         String URL = "http://uwoshalumnicard.000webhostapp.com/app/removephoto.php?alumnusid=";
         URL = URL.concat(temp);

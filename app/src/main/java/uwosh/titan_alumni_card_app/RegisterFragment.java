@@ -90,7 +90,6 @@ public class RegisterFragment extends Fragment {
         // Set up the register form.
         // Credential checks required
         mFirstName = (AutoCompleteTextView) view.findViewById(R.id.first_name);
-        mMiddleName = (AutoCompleteTextView) view.findViewById(R.id.middle_name);
         mLastName = (EditText) view.findViewById(R.id.last_name);
         mEmailView = (AutoCompleteTextView) view.findViewById(R.id.email);
         mMailingAddress = (AutoCompleteTextView) view.findViewById(R.id.mailing_address);
@@ -134,7 +133,6 @@ public class RegisterFragment extends Fragment {
 
         // Store values at the time of the login attempt.
         final String firstName = mFirstName.getText().toString();
-        final String middleName = mMiddleName.getText().toString();
         final String lastName = mLastName.getText().toString();
         final String collegeAttended = mCollegeAttended.getSelectedItem().toString();
         final String graduationYear = mGraduationYear.getSelectedItem().toString();
@@ -170,7 +168,7 @@ public class RegisterFragment extends Fragment {
                     Volley.newRequestQueue(getView().getContext());
 
 
-            String URLVariables = "?firstName=" + firstName + "&middleName=" + middleName +
+            String URLVariables = "?firstName=" + firstName +
                                   "&lastName=" + lastName +"&collegeAttended=" + collegeAttended +
                                   "&graduationYear=" + graduationYear + "&email=" + email +
                                   "&mailingAddress=" + mailingAddress + "&city=" + city +
