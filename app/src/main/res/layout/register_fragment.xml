@@ -47,7 +47,7 @@
                     android:id="@+id/middle_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Middle Name  *"
+                    android:hint="Middle Name "
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"

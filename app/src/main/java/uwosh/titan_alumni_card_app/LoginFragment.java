@@ -156,6 +156,6 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean isEmailValid(String email) {
-        return email.contains("@");
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

@@ -167,8 +167,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
+        Toast.makeText(this, "ALUMN PHOTO ON START: " + alumnPhoto, Toast.LENGTH_SHORT).show();
         imageView = (ImageView) findViewById(R.id.profilePic);
-        if (!alumnPhoto.equals(null) && firstLoad && !alumnPhoto.equals("default.jpg")){
+        if (firstLoad && !alumnPhoto.equals("default.jpg")){
             String img = "https://uwoshalumnicard.000webhostapp.com/Images/Uploads/" + alumnPhoto;
             DownloadImageTask imgTask = new DownloadImageTask(imageView);
             imgTask.execute(img);
@@ -176,12 +177,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             //if(profilePicture.getDrawable() != null && firstLoad){
                 imageView = profilePicture;
-                firstLoad = false;
+
                 imageView.setVisibility(View.VISIBLE);
             //}
         } else{
             //No profile picture to display
         }
+        firstLoad = false;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -205,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
+            bmImage.setImageBitmap(result);//file not found exception causing result to be nothing making the image invisible
             //bmImage.setVisibility(View.VISIBLE);
         }
 
@@ -236,12 +238,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                  //Creating a multi part request
                  new MultipartUploadRequest(this, uploadId, UPLOAD_URL)
                         .addFileToUpload(path, "image") //Adding file
-                        .addParameter("name", id.replace("0", ""))
+                        .addParameter("name", id.replaceFirst("^0+(?!$)", ""))
                          .setMaxRetries(2)
                          .startUpload(); //Starting the upload
 
                 //Update the class variable
-                alumnPhoto = id.replace("0", "");
+                alumnPhoto = id.replaceFirst("^0+(?!$)", "");
                 Toast.makeText(this, "Profile picture saved!", Toast.LENGTH_SHORT).show();
 
             } catch (Exception exc) {
@@ -281,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             //filePath = data.getData();
             try {
-                filePath = data.getData();
+                filePath = data.getData();//file path is of type Uri
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
                 imageView.setVisibility(View.VISIBLE);
@@ -358,7 +360,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void disablePhoto(){
 
-        String temp = id.replace("0", "");
+        String temp = id.replaceFirst("^0+(?!$)", "");
+        Toast.makeText(this, "USER ID: " + temp, Toast.LENGTH_SHORT).show();
+        //String temp = id.replace("0", "");
         String URL = "http://uwoshalumnicard.000webhostapp.com/app/removephoto.php?alumnusid=";
         URL = URL.concat(temp);
             @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
@@ -372,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if(response.equals("success")){
                                 //Database wasn't updated
                                 imageView.setVisibility(View.INVISIBLE);
-                                alumnPhoto = "NULL";
+                                alumnPhoto = "default.jpg";
                             }else{
                                 //Toast.makeText(getApplicationContext(),"Your image could not be deleted at this time.",Toast.LENGTH_LONG).show();
                             }

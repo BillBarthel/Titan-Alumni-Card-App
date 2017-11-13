@@ -152,10 +152,7 @@ public class RegisterFragment extends Fragment {
         if (TextUtils.isEmpty(firstName)) {
             focusView = mFirstName;
             cancel = true;
-        } else if(TextUtils.isEmpty(middleName)){
-            focusView = mMiddleName;
-            cancel = true;
-        } else if(TextUtils.isEmpty(lastName)){
+        }  else if(TextUtils.isEmpty(lastName)){
             focusView = mLastName;
             cancel = true;
         } else if(TextUtils.isEmpty(email) || !isEmailValid(email)){
@@ -197,8 +194,8 @@ public class RegisterFragment extends Fragment {
                                 getActivity().finish();
                             }else{
                                 //login failed. prompt to re-enter credentials
-                                Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
-                                //Toast.makeText(getContext(),"Properly complete the required fields",Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(),"Something went wrong. Cannot register at this time.",Toast.LENGTH_LONG).show();
                                 //mPasswordView.setError(response);
                                 //mPasswordView.setError("Email is already registered");
                                 //mPasswordView.requestFocus();
@@ -219,6 +216,6 @@ public class RegisterFragment extends Fragment {
     }
 
     private boolean isEmailValid(String email) {
-        return email.contains("@");
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
