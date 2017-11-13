@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //UPLOAD IMAGE STUFF
         //Requesting storage permission
-        requestStoragePermission();
+        //requestStoragePermission();
 
         //Initializing views
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
@@ -206,8 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);//file not found exception causing result to be nothing making the image invisible
-            //bmImage.setVisibility(View.VISIBLE);
+            bmImage.setImageBitmap(result);
         }
 
         protected ImageView getImage(){
@@ -338,19 +337,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //If permission is granted
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //Displaying a toast
-                //Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "You can now upload or remove your profile photo.", Toast.LENGTH_LONG).show();
             } else {
                 //Displaying another toast if permission is not granted
-                Toast.makeText(this, "You need to grant permission to upload a personal photo", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "You need to grant permission to upload a personal photo.", Toast.LENGTH_LONG).show();
             }
         }
     }
 
-
     @Override
     public void onClick(View v) {
         if (v == buttonChoose) {
-            showFileChooser();
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == 0){
+                showFileChooser();
+            }
+            else{
+                requestStoragePermission();
+            }
         }
         if (v == buttonDelete) {
             disablePhoto();
