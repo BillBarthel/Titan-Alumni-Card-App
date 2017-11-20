@@ -17,15 +17,6 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/scapealumnicardtemplate" />
 
-    <ImageView
-        android:id="@+id/profilePic"
-        android:layout_width="80dp"
-        android:layout_height="93dp"
-        android:layout_alignTop="@id/cardBackground"
-        android:layout_marginTop="67dp"
-        android:layout_marginLeft="20dp"
-        android:visibility="invisible"/>
-
     <TextView
         android:id="@+id/nameLine1"
         android:layout_width="wrap_content"

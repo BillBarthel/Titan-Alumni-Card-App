@@ -2,7 +2,6 @@ package uwosh.titan_alumni_card_app;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -12,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -37,21 +35,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
-import net.gotev.uploadservice.UploadNotificationConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import static android.R.attr.orientation;
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static String id;
@@ -73,10 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Declaring views
     private Button buttonChoose;
     private Button buttonUpload;
-    private ImageView imageView;
+    private ImageView profilePicture;
     private EditText editText;
 
-    private ImageView profilePicture;
+    private ImageView getProfilePicture;
     private boolean firstLoad = true;
 
     //Image request code
@@ -167,17 +159,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        imageView = (ImageView) findViewById(R.id.profilePic);
+        profilePicture = (ImageView) findViewById(R.id.profilePic);
         if (firstLoad && !alumnPhoto.equals("default.jpg")){
             String img = "https://uwoshalumnicard.000webhostapp.com/Images/Uploads/" + alumnPhoto;
-            DownloadImageTask imgTask = new DownloadImageTask(imageView);
+            DownloadImageTask imgTask = new DownloadImageTask(profilePicture);
             imgTask.execute(img);
-            profilePicture = imgTask.getImage();
+            getProfilePicture = imgTask.getImage();
 
             //if(profilePicture.getDrawable() != null && firstLoad){
-                imageView = profilePicture;
+                profilePicture = getProfilePicture;
 
-                imageView.setVisibility(View.VISIBLE);
+                profilePicture.setVisibility(View.VISIBLE);
             //}
         } else{
             //No profile picture to display
@@ -222,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void uploadMultipart() {
         //getting name for the image
         //String name = editText.getText().toString().trim();
-        //if(imageView.getVisibility()==View.VISIBLE){
+        //if(profilePicture.getVisibility()==View.VISIBLE){
 
 
         try {
@@ -283,8 +275,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 filePath = data.getData();//file path is of type Uri
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                imageView.setImageBitmap(bitmap);
-                imageView.setVisibility(View.VISIBLE);
+                profilePicture.setImageBitmap(bitmap);
+                profilePicture.setVisibility(View.VISIBLE);
                 uploadMultipart();
 
             } catch (IOException e) {
@@ -376,7 +368,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             //check the response from the server
                             if(response.equals("success")){
                                 //Database wasn't updated
-                                imageView.setVisibility(View.INVISIBLE);
+                                profilePicture.setVisibility(View.INVISIBLE);
                                 alumnPhoto = "default.jpg";
                             }else{
                                 //Toast.makeText(getApplicationContext(),"Your image could not be deleted at this time.",Toast.LENGTH_LONG).show();

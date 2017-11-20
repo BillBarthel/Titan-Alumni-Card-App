@@ -55,6 +55,23 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/UserInput">
+
+                <AutoCompleteTextView
+                    android:id="@+id/graduation_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name at Graduation (If Different)"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:theme="@style/lineColor"
+                    android:imeOptions="actionNext"/>
+
+            </android.support.design.widget.TextInputLayout>
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
@@ -188,7 +205,7 @@
                         android:id="@+id/phone_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Phone Number"
+                        android:hint="Cell Number"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLines="1"
