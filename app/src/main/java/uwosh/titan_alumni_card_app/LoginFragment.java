@@ -41,7 +41,8 @@ public class LoginFragment extends Fragment {
     //Include the IP of the computer XAMPP is running on
     //private static String URL = "http://192.168.0.7/AlumniCardAndroid/signIn.php";
     //Include the url of where the db is being hosted
-    private static String URL = "http://uwoshalumnicard.000webhostapp.com/app/signIn.php";
+    //private static String URL = "http://uwoshalumnicard.000webhostapp.com/app/signIn.php";
+    private static String URL = "http://uwoalumnicard.xyz/app/signIn.php";
 
     // UI references.
     private AutoCompleteTextView mEmailView;
