@@ -20,14 +20,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AlumniCardBackgroundSelectActivity extends AppCompatActivity {
-    private static String userData;
     private RadioGroup cardBackgrounds;
     private RadioButton selectedBackground;
     private Button getSelectedBackground;
+    private ArrayList<String> userData;
+    private static String email;
     private int alumniCardBackground;
     //Include the IP of the computer XAMPP is running on
     //private static String URL = "http://192.168.0.7/AlumniCardAndroid/setbackground.php";
@@ -40,7 +42,8 @@ public class AlumniCardBackgroundSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alumni_card_background_select);
 
-        userData = getIntent().getStringExtra("USER_DATA");
+        userData = getIntent().getStringArrayListExtra("USER_DATA");
+        email = userData.get(1);
         addListenerOnButton();
 
         ImageView a = new ImageView(this);
@@ -125,9 +128,6 @@ public class AlumniCardBackgroundSelectActivity extends AppCompatActivity {
     }
 
     private void sendVolleyRequest(){
-        String[] data = userData.split(",");
-        String email = data[1];
-
         @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
                 Volley.newRequestQueue(this.getApplicationContext());
 
@@ -163,7 +163,8 @@ public class AlumniCardBackgroundSelectActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
         //Start the main activity with the user's selected background
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        i.putExtra("USER_DATA",userData.concat("," + alumniCardBackground));
+        userData.add(Integer.toString(alumniCardBackground));
+        i.putExtra("USER_DATA",userData);
         startActivity(i);
         finish();
     }

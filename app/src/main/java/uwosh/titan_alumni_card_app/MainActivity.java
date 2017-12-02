@@ -42,6 +42,7 @@ import net.gotev.uploadservice.MultipartUploadRequest;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 
@@ -86,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Include the IP of the computer XAMPP is running on
     //private static String URL = "http://192.168.0.7/AlumniCardAndroid/upload.php";
     //Include the url of where the db is being hosted
-    private static String UPLOAD_URL = "http://uwoshalumnicard.000webhostapp.com/app/upload.php";
-    private static String IMAGE_FETCH_URL = "http://uwoshalumnicardextra.000webhostapp.com/getphoto.php";
+    private static String UPLOAD_URL = "http://uwoalumnicard.xyz/app/upload.php";
+    private static String IMAGE_FETCH_URL = "http://uwoalumnicard.xyz/app/getphoto.php";
 
     //1 if portrait, 2 if landscape.
     private int orientation;
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         //Set user data received from database
-        String userData = getIntent().getStringExtra("USER_DATA");
+        ArrayList<String> userData = getIntent().getStringArrayListExtra("USER_DATA");
         setUserVariables(userData);
         displayUserVariables();
     }
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         profilePicture = (ImageView) findViewById(R.id.profilePic);
         if (firstLoad && !alumnPhoto.equals("default.jpg")){
-            String img = "https://uwoshalumnicard.000webhostapp.com/Images/Uploads/" + alumnPhoto;
+            String img = "http://uwoalumnicard.xyz/Images/Uploads/" + alumnPhoto;
             DownloadImageTask imgTask = new DownloadImageTask(profilePicture);
             imgTask.execute(img);
             getProfilePicture = imgTask.getImage();
@@ -570,18 +571,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Sets variables to the corresponding user data. Should set these as text fields
      * @param userData data pulled from database
      */
-    private void setUserVariables(String userData){
-        String[] userVariables = userData.split(",");
-        id = userVariables[0];
-        email = userVariables[1];
-        userName = userVariables[2];
-        firstName = userVariables[3];
-        lastName = userVariables[4];
-        collegeAttended = userVariables[5];
-        graduationYear = userVariables[6];
-        alumnPhoto = userVariables[7];
-        backgroundImage = Integer.valueOf(userVariables[8]);
-        //qrCode = userVariables[9];
+    private void setUserVariables(ArrayList<String> userData){
+        id = userData.get(0);
+        email = userData.get(1);
+        userName = userData.get(2);
+        firstName = userData.get(3);
+        lastName = userData.get(4);
+        collegeAttended = userData.get(5);
+        graduationYear = userData.get(6);
+        alumnPhoto = userData.get(7);
+        backgroundImage = Integer.valueOf(userData.get(8));
+        //qrCode = userData.get(9);
     }
 
     @Override

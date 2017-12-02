@@ -29,6 +29,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -185,21 +189,20 @@ public class RegisterFragment extends Fragment {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            //check the response from the server
-                            String[] result = response.split("-");
-                            if(result[0].equals("success")){
-                                //Registration authenticated. Start the next activity
+                            try {
+                                //getting the whole json object from the response
+                                JSONObject obj = new JSONObject(response);
+                                //Toast.makeText(getContext(),"SUCCESS: " + obj,Toast.LENGTH_LONG).show();
+                                ArrayList<String> userData = parseJSONObject(obj);
+
                                 Intent i = new Intent(getActivity().getApplicationContext(), AlumniCardBackgroundSelectActivity.class);
-                                i.putExtra("USER_DATA",result[1]);
+                                //Intent i = new Intent(getActivity().getApplicationContext(), AlumniCardBackgroundSelectActivity.class);
+                                i.putExtra("USER_DATA",userData);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(i);
                                 getActivity().finish();
-                            }else{
-                                //login failed. prompt to re-enter credentials
-                                //Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
-                                Toast.makeText(getContext(),"Something went wrong. Cannot register at this time.",Toast.LENGTH_LONG).show();
-                                //mPasswordView.setError(response);
-                                //mPasswordView.setError("Email is already registered");
-                                //mPasswordView.requestFocus();
+                            } catch (JSONException e) {
+                                Toast.makeText(getContext(),"EXCEPTION: " + response,Toast.LENGTH_LONG).show();
                             }
                         }
                     },
@@ -207,13 +210,33 @@ public class RegisterFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             //error in sending request
-                            Toast.makeText(getContext(),error.toString() + " onErrorResponse",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(),"Unable to connect to server. Try again later.",Toast.LENGTH_LONG).show();
                         }
                     });
             //add the request to the RequestQueue
             requestQueue.add(stringRequest);
 
         }
+    }
+
+    private ArrayList<String> parseJSONObject(JSONObject obj){
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        try {
+            arrayList.add(obj.getString("paddedId"));
+            arrayList.add(obj.getString("email"));
+            arrayList.add(obj.getString("username"));
+            arrayList.add(obj.getString("firstname"));
+            Toast.makeText(getContext(),"first name: : " + arrayList.get(3),Toast.LENGTH_LONG).show();
+            arrayList.add(obj.getString("lastname"));
+            arrayList.add(obj.getString("collegeattended"));
+            arrayList.add(obj.getString("graduationyear"));
+            arrayList.add(obj.getString("alumnphoto"));
+        } catch (JSONException e) {
+            Toast.makeText(getContext(),"Error parsing JSON",Toast.LENGTH_LONG).show();
+        }
+
+        return arrayList;
     }
 
     private boolean isEmailValid(String email) {
