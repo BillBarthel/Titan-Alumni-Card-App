@@ -7,25 +7,24 @@
     android:layout_gravity="center"
     tools:context="uwosh.titan_alumni_card_app.AlumniCardBackgroundSelectActivity">
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:paddingStart="57.5dp"
-        android:text="Select your background design"/>
-
     <RadioGroup
         android:id="@+id/radioSex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         android:gravity="center"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="Select your background design"/>
 
         <ImageView
             android:id="@+id/a"
