@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String temp = id.replaceFirst("^0+(?!$)", "");
         //String temp = id.replace("0", "");
-        String URL = "http://uwoshalumnicard.000webhostapp.com/app/removephoto.php?alumnusid=";
+        String URL = "http://uwoalumnicard.xyz/app/removephoto.php?alumnusid=";
         URL = URL.concat(temp);
             @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
                     Volley.newRequestQueue(this.getApplicationContext());
@@ -412,14 +412,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         cardBackground.inflate();
-
+        //Toast.makeText(getApplicationContext(),profilePicture.getLayoutParams().width,Toast.LENGTH_LONG).show();
         boolean longName = false;
         boolean longCollege = false;
         TextView[] alumniCardTextFields = getTextViews();
         alumniCardTextFields[5].setText(id);
 
         int nameLength = firstName.length() + lastName.length();
-        //display name on two lines
+        //Display name on two lines. Increase this value when in landscape mode.
         if(nameLength > 15){
             longName = true;
         }
@@ -435,7 +435,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else{
             basicDisplay(alumniCardTextFields);
         }
-        setMargins(alumniCardTextFields,longName, longCollege);
+        //setMargins(alumniCardTextFields,longName, longCollege);
     }
 
     /**
@@ -535,7 +535,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         alumniCardTextFields[3] = (TextView) findViewById(R.id.collegeLine2);
         alumniCardTextFields[4] = (TextView) findViewById(R.id.gradYear);
         alumniCardTextFields[5] = (TextView) findViewById(R.id.alumnNum);
-        alumniCardTextFields[6] = (TextView) findViewById(R.id.qrCode);
+        //alumniCardTextFields[6] = (TextView) findViewById(R.id.qrCode);
         return alumniCardTextFields;
     }
 
@@ -544,27 +544,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         alumniCardTextFields[0].setText(firstName);
         alumniCardTextFields[1].setText(lastName);
-        alumniCardTextFields[2].setText(college[0]);
-        alumniCardTextFields[3].setText(college[1]);
+        if(college[1].contains("ENGAGEMENT")){
+            alumniCardTextFields[2].setText(college[0] + " AND");
+            alumniCardTextFields[3].setText(college[1].replaceFirst("^ *", ""));
+        }else{
+            alumniCardTextFields[2].setText(college[0]);
+            alumniCardTextFields[3].setText("AND" + college[1]);
+        }
     }
 
     private void longNameOrCollege(TextView[] alumniCardTextFields, boolean longName){
         String[] college = collegeAttended.split("AND");
 
         if(longName){
-            alumniCardTextFields[0].setText(firstName);
-            alumniCardTextFields[1].setText(lastName);
-            alumniCardTextFields[2].setText(collegeAttended);
+            alumniCardTextFields[1].setText(firstName);
+            alumniCardTextFields[2].setText(lastName);
+            alumniCardTextFields[3].setText(collegeAttended);
         }else{//longCollege
-            alumniCardTextFields[0].setText(firstName + " " + lastName);
-            alumniCardTextFields[2].setText(college[0]);
-            alumniCardTextFields[3].setText("AND" + college[1]);
+            alumniCardTextFields[0].setText("");
+            alumniCardTextFields[1].setText(firstName + " " + lastName);
+            if(college[1].contains("ENGAGEMENT")){
+                alumniCardTextFields[2].setText(college[0] + " AND");
+                alumniCardTextFields[3].setText(college[1].replaceFirst("^ *", ""));
+            }else{
+                alumniCardTextFields[2].setText(college[0]);
+                alumniCardTextFields[3].setText("AND" + college[1]);
+            }
         }
     }
 
     private void basicDisplay(TextView[] alumniCardTextFields){
-        alumniCardTextFields[0].setText(firstName + " " + lastName);
-        alumniCardTextFields[2].setText(collegeAttended);
+        alumniCardTextFields[0].setText("");
+        alumniCardTextFields[1].setText("");
+        alumniCardTextFields[2].setText(firstName + " " + lastName);
+        alumniCardTextFields[3].setText(collegeAttended);
     }
 
     /**

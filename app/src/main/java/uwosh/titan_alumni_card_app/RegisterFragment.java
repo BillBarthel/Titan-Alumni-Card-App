@@ -202,7 +202,7 @@ public class RegisterFragment extends Fragment {
                                 startActivity(i);
                                 getActivity().finish();
                             } catch (JSONException e) {
-                                Toast.makeText(getContext(),"EXCEPTION: " + response,Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(),"That email is already registered.",Toast.LENGTH_LONG).show();
                             }
                         }
                     },
@@ -227,7 +227,6 @@ public class RegisterFragment extends Fragment {
             arrayList.add(obj.getString("email"));
             arrayList.add(obj.getString("username"));
             arrayList.add(obj.getString("firstname"));
-            Toast.makeText(getContext(),"first name: : " + arrayList.get(3),Toast.LENGTH_LONG).show();
             arrayList.add(obj.getString("lastname"));
             arrayList.add(obj.getString("collegeattended"));
             arrayList.add(obj.getString("graduationyear"));

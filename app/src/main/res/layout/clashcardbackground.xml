@@ -16,77 +16,72 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/clashalumnicardtemplate" />
 
-    <TextView
-        android:id="@+id/nameLine1"
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/cardBackground"
-        android:layout_marginBottom="36dp"
-        android:layout_marginLeft="20dp"
-        android:text="FIRST NAME"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp" />
+        android:layout_marginStart="20dp"
+        android:layout_alignBottom="@id/cardBackground">
 
-    <TextView
-        android:id="@+id/nameLine2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/cardBackground"
-        android:layout_marginBottom="24dp"
-        android:layout_marginLeft="20dp"
-        android:text="LAST NAME"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/collegeLine1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/cardBackground"
-        android:layout_marginBottom="12dp"
-        android:layout_marginLeft="20dp"
-        android:text="COLLEGE LINE 1"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp" />
+            <TextView
+                android:id="@+id/nameLine1"
+                android:text="FIRST NAME"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:shadowColor="#94000000"
+                android:shadowDy="6"
+                android:shadowRadius="6"/>
+        </TableRow>
 
-    <TextView
-        android:id="@+id/collegeLine2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/cardBackground"
-        android:layout_marginLeft="20dp"
-        android:text="COLLEGE LINE 2"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/gradYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/nameLine1"
-        android:layout_marginLeft="150dp"
-        android:text="2017"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/nameLine2"
+                android:text="LAST NAME"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </TableRow>
 
-    <TextView
-        android:id="@+id/alumnNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/nameLine1"
-        android:layout_marginLeft="210dp"
-        android:text="1234567"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/qrCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/collegeLine1"
-        android:layout_marginLeft="210dp"
-        android:text="QR Code"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        android:visibility="invisible"/>
+            <TextView
+                android:id="@+id/collegeLine1"
+                android:text="COLLEGE LINE 1"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/gradYear"
+                android:text="2017"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:layout_marginStart="16dp"/>
+
+            <TextView
+                android:id="@+id/alumnNum"
+                android:text="1234567"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:layout_marginStart="16dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/collegeLine2"
+                android:text="COLLEGE LINE 2"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+        </TableRow>
+    </TableLayout>
+
 </RelativeLayout>
