@@ -416,6 +416,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boolean longName = false;
         boolean longCollege = false;
         TextView[] alumniCardTextFields = getTextViews();
+        alumniCardTextFields[4].setText(graduationYear);
         alumniCardTextFields[5].setText(id);
 
         int nameLength = firstName.length() + lastName.length();
