@@ -87,8 +87,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Include the IP of the computer XAMPP is running on
     //private static String URL = "http://192.168.0.7/AlumniCardAndroid/upload.php";
     //Include the url of where the db is being hosted
-    private static String UPLOAD_URL = "http://uwoalumnicard.xyz/app/upload.php";
-    private static String IMAGE_FETCH_URL = "http://uwoalumnicard.xyz/app/getphoto.php";
+    private static String UPLOAD_URL = "http://uwoshalumnicard.000webhostapp.com/app/upload.php";
+    private static String IMAGE_FETCH_URL = "http://uwoshalumnicard.000webhostapp.com/app/getphoto.php";
+    //private static String UPLOAD_URL = "http://uwoalumnicard.xyz/app/upload.php";
+    //private static String IMAGE_FETCH_URL = "http://uwoalumnicard.xyz/app/getphoto.php";
 
     //1 if portrait, 2 if landscape.
     private int orientation;
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         profilePicture = (ImageView) findViewById(R.id.profilePic);
         if (firstLoad && !alumnPhoto.equals("default.jpg")){
-            String img = "http://uwoalumnicard.xyz/Images/Uploads/" + alumnPhoto;
+            String img = "http://uwoshalumnicard.000webhostapp.com/Images/Uploads/" + alumnPhoto;
             DownloadImageTask imgTask = new DownloadImageTask(profilePicture);
             imgTask.execute(img);
             getProfilePicture = imgTask.getImage();
@@ -263,7 +265,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-        //uploadMultipart();
     }
 
     //handling the image chooser activity result
@@ -357,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String temp = id.replaceFirst("^0+(?!$)", "");
         //String temp = id.replace("0", "");
-        String URL = "http://uwoalumnicard.xyz/app/removephoto.php?alumnusid=";
+        String URL = "http://uwoshalumnicard.000webhostapp.com/app/removephoto.php?alumnusid=";
         URL = URL.concat(temp);
             @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
                     Volley.newRequestQueue(this.getApplicationContext());
