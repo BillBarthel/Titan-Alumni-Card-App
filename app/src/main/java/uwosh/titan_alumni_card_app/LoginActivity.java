@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 /**
  * A login screen that offers login via email/password.
+ * The login and register screen are fragments resting on top of the ViewPager.
  */
 public class LoginActivity extends AppCompatActivity{
 

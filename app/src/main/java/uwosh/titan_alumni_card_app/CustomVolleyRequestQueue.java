@@ -23,6 +23,10 @@ import java.util.Map;
 
 /**
  * Created by Bill on 11/4/2017.
+ * An attempt to condense all the Volley calls into one class.
+ * Similar code is used in the LoginFragment, RegisterFragment, and AlumniCardBackgroundSelectActivity
+ * as they all need to connect to the database but are slighly different. If I though ahead I
+ * would have made all the request function correctly in this class.
  */
 
 public class CustomVolleyRequestQueue {
