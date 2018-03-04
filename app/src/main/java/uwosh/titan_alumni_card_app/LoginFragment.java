@@ -2,43 +2,16 @@ package uwosh.titan_alumni_card_app;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- *
- * Created by Bill on 10/16/2017.
- */
 
 public class LoginFragment extends Fragment {
     private static final String TAG = "LoginFragment";
@@ -55,6 +28,15 @@ public class LoginFragment extends Fragment {
     private EditText mPasswordView;
 
     public LoginActivity LoginActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if(context instanceof Activity){
+            LoginActivity = (LoginActivity)context;
+        }
+    }
 
     @Nullable
     @Override
@@ -73,15 +55,6 @@ public class LoginFragment extends Fragment {
         });
 
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if(context instanceof Activity){
-            LoginActivity = (LoginActivity)context;
-        }
     }
 
     /**
@@ -115,74 +88,13 @@ public class LoginFragment extends Fragment {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+            // There was an error; don't attempt login and focus the first form field with an error.
             focusView.requestFocus();
         } else {
-            @SuppressWarnings("ConstantConditions") RequestQueue requestQueue =
-                                                    Volley.newRequestQueue(getView().getContext());
-
             String URLVariables = "?email=" + email;
             String login = URL.concat(URLVariables);
-
-            //URL = URL.concat(URLVariables);
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, login,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                //getting the whole json object from the response
-                                JSONObject obj = new JSONObject(response);
-                                //Toast.makeText(getContext(),"SUCCESS: " + obj,Toast.LENGTH_LONG).show();
-                                ArrayList<String> userData = parseJSONObject(obj);
-
-                                Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                                //Intent i = new Intent(getActivity().getApplicationContext(), AlumniCardBackgroundSelectActivity.class);
-                                i.putExtra("USER_DATA",userData);
-                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(i);
-                                getActivity().finish();
-                            } catch (JSONException e) {
-                                Toast.makeText(getContext(),"EXCEPTION",Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //error in sending request
-                            Toast.makeText(getContext(),"Unable to connect to server. Try again later.",Toast.LENGTH_LONG).show();
-                        }
-                    });
-            //add the request to the RequestQueue
-            requestQueue.add(stringRequest);
-
-            //Toast.makeText(getContext(),"URL: " + URL,Toast.LENGTH_LONG).show();
-            //Request a string response from the provided URL
-
+            ((LoginActivity)getActivity()).login(login, 0);
         }
-
-    }
-
-    private ArrayList<String> parseJSONObject(JSONObject obj){
-        ArrayList<String> arrayList = new ArrayList<>();
-
-        try {
-            arrayList.add(obj.getString("paddedId"));
-            arrayList.add(obj.getString("email"));
-            arrayList.add(obj.getString("username"));
-            arrayList.add(obj.getString("firstname"));
-            arrayList.add(obj.getString("lastname"));
-            arrayList.add(obj.getString("collegeattended"));
-            arrayList.add(obj.getString("graduationyear"));
-            arrayList.add(obj.getString("alumnphoto"));
-            arrayList.add(obj.getString("background"));
-        } catch (JSONException e) {
-            Toast.makeText(getContext(),"Error parsing JSON",Toast.LENGTH_LONG).show();
-        }
-
-        return arrayList;
     }
 
     private boolean isEmailValid(String email) {
